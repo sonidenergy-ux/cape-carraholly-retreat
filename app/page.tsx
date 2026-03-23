@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Footprints,
+  Home as HomeIcon,
   Kayak,
   Scissors,
   Ship,
@@ -25,19 +26,19 @@ export default function Home() {
     {
       title: "Oceanfront Lodges",
       description:
-        "Three-bedroom coastal retreats with private hot tubs, crackling fireplaces, and twilight firepit evenings by the water.",
-      Icon: Waves,
+        "Three-bedroom coastal retreats with private hot tubs, fireplaces, and twilight firepits by the water. Perfect for families or small groups seeking elevated comfort.",
+      Icon: HomeIcon,
     },
     {
       title: "Waterfront Dome",
       description:
-        "Panoramic ocean views, a king bed, and luxury linens create a serene hideaway designed for effortless reconnection.",
+        "Panoramic inlet views, king bed, luxury linens – a serene hideaway designed for effortless reconnection.",
       Icon: Tent,
     },
     {
       title: "Secluded Yurts",
       description:
-        "Elevated forest platforms with immersive wilderness stillness and thoughtfully curated shared amenities steps away.",
+        "Elevated forest platforms immersed in wilderness stillness with curated shared amenities nearby.",
       Icon: Tent,
     },
   ];
@@ -96,7 +97,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div
-          className="hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop')] scale-110"
+          className="hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop')] scale-110"
           style={{ y: parallaxY }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70" />
@@ -139,6 +140,50 @@ export default function Home() {
               Stay Informed
             </a>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="mt-8 text-sm md:text-base text-white/85 font-medium"
+          >
+            Complimentary boat shuttle from Rocky Point Park • No experience needed
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Accommodations */}
+      <section id="accommodations" className="py-24 bg-[var(--color-sand)]">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl font-serif mb-16 text-center text-[var(--color-forest)]">
+            Your Private Sanctuary Awaits
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
+            {accommodations.map((item, index) => (
+              <motion.article
+                key={item.title}
+                className="bg-white rounded-3xl shadow-xl overflow-hidden border border-[var(--color-accent)]/20 p-8 flex flex-col"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <item.Icon className="w-12 h-12 text-[var(--color-ocean)] mb-6" />
+                <h3 className="text-2xl font-serif text-[var(--color-forest)] mb-4">{item.title}</h3>
+                <p className="text-lg text-[var(--color-text-light)] opacity-90 leading-relaxed mb-6 flex-1">
+                  {item.description}
+                </p>
+                <button
+                  onClick={() => alert(`Cloudbeds modal for ${item.title} – 6a6jNf`)}
+                  className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
+                >
+                  Reserve This Sanctuary
+                </button>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -155,39 +200,6 @@ export default function Home() {
           <p className="text-sm mt-6 opacity-70">
             We respect your privacy. Unsubscribe anytime.
           </p>
-        </div>
-      </section>
-
-      {/* Accommodations */}
-      <section id="accommodations" className="py-24 bg-[var(--color-sand)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-5xl font-serif mb-16 text-center text-[var(--color-forest)]">
-            Your Private Sanctuary Awaits
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-6">
-            {accommodations.map((item, index) => (
-              <motion.article
-                key={item.title}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden p-8 flex flex-col"
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <item.Icon className="w-10 h-10 text-[var(--color-forest)] mb-6" />
-                <h3 className="text-3xl font-serif text-[var(--color-forest)] mb-4">{item.title}</h3>
-                <p className="text-[var(--color-text-light)] leading-relaxed mb-8 flex-1">{item.description}</p>
-                <button
-                  onClick={() => alert("Cloudbeds Immersive modal – 6a6jNf")}
-                  className="bg-white text-[var(--color-forest)] border border-[var(--color-forest)] px-8 py-4 rounded-full text-lg font-medium hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300 shadow-lg"
-                >
-                  Reserve This Escape
-                </button>
-              </motion.article>
-            ))}
-          </div>
         </div>
       </section>
 
