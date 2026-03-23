@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.swc/
+out/
+build/
+dist/
+npm-debug.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vercel
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
