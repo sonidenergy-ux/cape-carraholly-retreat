@@ -202,27 +202,29 @@ export default function Home() {
 
   return (
     <>
-      {/* 2026 Urgency Banner — below global header */}
-      <div className="fixed left-0 right-0 top-[var(--site-header-height)] z-[55] bg-[var(--color-ocean)] py-3 text-center text-sm font-medium tracking-wide text-white shadow-md md:text-base">
+      {/* 2026 Urgency Banner — below global header, forest canopy green */}
+      <div className="fixed left-0 right-0 top-[var(--site-header-height)] z-[55] bg-gradient-to-r from-[var(--color-canopy)] via-[var(--color-canopy-mid)] to-[var(--color-canopy)] py-2.5 text-center text-xs font-medium tracking-wide text-white/95 shadow-md sm:py-3 sm:text-sm md:text-base">
         2026 Under New Management — Upgraded Sanctuaries • Select Dates Filling Fast
       </div>
 
-      {/* Sticky Booking Bar – fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--color-wood)]/40 bg-white/95 shadow-2xl backdrop-blur-lg">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-4 sm:flex-row">
-          <div className="flex items-center gap-3 text-[var(--color-forest)]">
-            <Ship className="h-6 w-6 shrink-0 text-[var(--color-accent)]" />
-            <span className="text-center text-lg font-medium sm:text-left">Your journey begins with the boat</span>
+      {/* Sticky Booking Bar — thin, fades upward into the page */}
+      <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-50">
+        <div className="pointer-events-auto border-t border-white/20 bg-gradient-to-t from-white/94 from-[35%] via-white/55 to-transparent pb-1 pt-6 shadow-[0_-12px_48px_-28px_rgba(26,60,52,0.18)] backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-2 sm:flex-row sm:py-2">
+            <div className="flex items-center gap-2 text-[var(--color-forest)]">
+              <Ship className="h-4 w-4 shrink-0 text-[var(--color-accent)] sm:h-5 sm:w-5" aria-hidden />
+              <span className="text-center text-sm font-medium sm:text-left">Your journey begins with the boat</span>
+            </div>
+            <motion.button
+              type="button"
+              onClick={() => openBookingModal({ source: "sticky_bar" })}
+              whileHover={{ y: -1, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="rounded-full bg-[var(--color-accent)] px-6 py-2 text-sm font-semibold text-[var(--color-forest)] shadow-md transition-all hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            >
+              Book Your Escape
+            </motion.button>
           </div>
-          <motion.button
-            type="button"
-            onClick={() => openBookingModal({ source: "sticky_bar" })}
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="btn-luxury-primary px-10 py-4 text-lg"
-          >
-            Book Your Escape
-          </motion.button>
         </div>
       </div>
 
@@ -742,7 +744,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[var(--color-ocean)] py-16 pb-28 text-white/90 md:pb-32">
+      <footer className="bg-[var(--color-ocean)] py-16 pb-24 text-white/90 md:pb-28">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12">
             <div>

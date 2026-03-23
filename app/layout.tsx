@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -62,6 +62,10 @@ export const metadata: Metadata = {
     description: "Minutes from Vancouver, worlds away. Boat-access luxury glamping.",
     images: ["https://cape-carraholly-retreat.vercel.app/og-hero.jpg"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1a3c34",
 };
 
 export default function RootLayout({

@@ -13,6 +13,9 @@
   --color-gold: #c9a97f;
   --color-text: #1a3c34;
   --color-text-light: #4a6a64;
+  /* Lush top-of-page green (banner, theme-color) */
+  --color-canopy: #1a3c34;
+  --color-canopy-mid: #234a42;
   /* Fixed header + urgency banner offsets (see Header + page banner) */
   --site-header-height: 5rem;
   --urgency-banner-height: 2.75rem;
@@ -26,10 +29,17 @@
 
 html {
   scroll-behavior: smooth;
+  /* Soft green wash at first paint before hero imagery */
+  background-color: var(--color-sand);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-canopy) 18%, var(--color-sand)) 0%,
+    var(--color-sand) min(28vh, 12rem)
+  );
 }
 
 body {
-  @apply bg-[var(--color-sand)] text-[var(--color-text)] font-sans;
+  @apply bg-transparent text-[var(--color-text)] font-sans;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
