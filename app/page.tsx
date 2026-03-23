@@ -10,7 +10,6 @@ import {
   Tent,
   ThermometerSun,
   Users,
-  Waves,
 } from "lucide-react";
 import NewsletterSignup from "../components/NewsletterSignup";
 
@@ -68,6 +67,24 @@ export default function Home() {
       title: "Gazebo Gatherings",
       description: "Host intimate celebrations and sunset socials in a private waterfront gazebo setting.",
       Icon: Users,
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote:
+        "The boat ride set the tone for pure magic. The lodge hot tub at sunset was unforgettable.",
+      attribution: "Sarah & Mike, Calgary",
+    },
+    {
+      quote:
+        "Secluded yurt felt like our own private island. Sauna and kayaking were highlights.",
+      attribution: "Emily T., Vancouver",
+    },
+    {
+      quote:
+        "New management upgrades shine. Peaceful, luxurious escape minutes from the city.",
+      attribution: "David L., Victoria",
     },
   ];
 
@@ -187,22 +204,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Teaser */}
-      <section id="newsletter" className="py-24 bg-[var(--color-forest)] text-white">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif mb-6">Join the Current</h2>
-          <p className="text-xl md:text-2xl mb-10 opacity-90">
-            Receive early access to 2026 upgrades, seasonal packages, and exclusive availability alerts.
-          </p>
-
-          <NewsletterSignup />
-
-          <p className="text-sm mt-6 opacity-70">
-            We respect your privacy. Unsubscribe anytime.
-          </p>
-        </div>
-      </section>
-
       {/* Experiences */}
       <section id="experiences" className="bg-[var(--color-forest)] text-white py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -234,6 +235,100 @@ export default function Home() {
               Discover Your Adventure
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="bg-[var(--color-sand)] py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
+            What Guests Are Saying
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {testimonials.map((item, index) => (
+              <motion.blockquote
+                key={item.attribution}
+                className="bg-white rounded-3xl shadow-xl p-8 border border-[var(--color-accent)]/20 flex flex-col"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <p className="text-lg text-[var(--color-text-light)] leading-relaxed mb-6 flex-1">
+                  &ldquo;{item.quote}&rdquo;
+                </p>
+                <footer className="text-[var(--color-forest)] font-medium text-sm md:text-base border-t border-[var(--color-accent)]/30 pt-4">
+                  — {item.attribution}
+                </footer>
+              </motion.blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="bg-[var(--color-forest)] text-white py-24">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-5xl font-serif text-center mb-12">The Story of Cape Carraholly</h2>
+
+          <motion.div
+            className="space-y-6 text-lg md:text-xl text-white/90 leading-relaxed"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+          >
+            <p>
+              Our name draws from Gaelic roots: <em>carra</em> evokes beautiful land, woven with the quiet presence of
+              holly trees that have graced this shoreline for generations.
+            </p>
+            <p>
+              Cape Carraholly sits on the unceded territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh
+              (Squamish), Stó:lō, and Tsleil-Waututh Nations. We honour their enduring stewardship of these lands and
+              waters.
+            </p>
+            <p>
+              Under new management in 2026, we are deepening guest comfort while holding conservation close: thoughtful
+              upgrades, lighter footprints, and a long-term commitment to protecting the inlet and forest that make this
+              place extraordinary.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="mt-12"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <button
+              type="button"
+              onClick={() => alert("Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf")}
+              className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
+            >
+              Learn More About Our Values
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Newsletter Teaser */}
+      <section id="newsletter" className="py-24 bg-[var(--color-forest)] text-white">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-serif mb-6">Join the Current</h2>
+          <p className="text-xl md:text-2xl mb-10 opacity-90">
+            Receive early access to 2026 upgrades, seasonal packages, and exclusive availability alerts.
+          </p>
+
+          <NewsletterSignup />
+
+          <p className="text-sm mt-6 opacity-70">
+            We respect your privacy. Unsubscribe anytime.
+          </p>
         </div>
       </section>
     </>
