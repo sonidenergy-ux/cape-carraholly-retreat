@@ -16,9 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import NewsletterSignup from "../components/NewsletterSignup";
-
-const CLOUDBEDS_ALERT =
-  "Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf";
+import BookingModal, { openBookingModal } from "@/components/BookingModal";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -175,7 +173,8 @@ export default function Home() {
             <span className="font-medium text-lg">Your Journey Begins with the Boat</span>
           </div>
           <button
-            onClick={() => alert(CLOUDBEDS_ALERT)}
+            type="button"
+            onClick={() => openBookingModal({ source: "sticky_bar" })}
             className="bg-[var(--color-forest)] hover:bg-[var(--color-ocean)] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-xl active:scale-95 text-lg"
           >
             Book Your Escape
@@ -217,7 +216,8 @@ export default function Home() {
             className="flex flex-col sm:flex-row gap-6 justify-center"
           >
             <button
-              onClick={() => alert("Cloudbeds Immersive modal – 6a6jNf")}
+              type="button"
+              onClick={() => openBookingModal({ source: "hero" })}
               className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
             >
               Reserve Your Sanctuary
@@ -265,7 +265,10 @@ export default function Home() {
                   {item.description}
                 </p>
                 <button
-                  onClick={() => alert(`Cloudbeds modal for ${item.title} – 6a6jNf`)}
+                  type="button"
+                  onClick={() =>
+                    openBookingModal({ source: "accommodations", accommodation: item.title })
+                  }
                   className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
                 >
                   Reserve This Sanctuary
@@ -301,7 +304,8 @@ export default function Home() {
 
           <div className="text-center">
             <button
-              onClick={() => alert(CLOUDBEDS_ALERT)}
+              type="button"
+              onClick={() => openBookingModal({ source: "experiences" })}
               className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
             >
               Discover Your Adventure
@@ -379,7 +383,7 @@ export default function Home() {
           >
             <button
               type="button"
-              onClick={() => alert(CLOUDBEDS_ALERT)}
+              onClick={() => openBookingModal({ source: "about" })}
               className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
             >
               Learn More About Our Values
@@ -424,7 +428,7 @@ export default function Home() {
           <div className="text-center">
             <button
               type="button"
-              onClick={() => alert(CLOUDBEDS_ALERT)}
+              onClick={() => openBookingModal({ source: "journal" })}
               className="bg-[var(--color-forest)] text-white px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-lg"
             >
               Explore the Journal
@@ -479,7 +483,7 @@ export default function Home() {
                           </p>
                           <button
                             type="button"
-                            onClick={() => alert(CLOUDBEDS_ALERT)}
+                            onClick={() => openBookingModal({ source: "faq" })}
                             className="bg-[var(--color-forest)] text-white px-8 py-3 rounded-full text-base font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-md"
                           >
                             Ready to Book?
@@ -597,6 +601,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <BookingModal />
     </>
   );
 }

@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -15,6 +15,25 @@ const playfair = Playfair_Display({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+const lodgingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  name: "Cape Carraholly Retreat",
+  description: "Boat-access-only oceanside glamping sanctuary near Vancouver BC",
+  url: "https://cape-carraholly-retreat.vercel.app",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Port Moody",
+    addressRegion: "BC",
+    addressCountry: "CA",
+  },
+  telephone: "+1-604-000-0000",
+  priceRange: "$$$",
+  image: "https://cape-carraholly-retreat.vercel.app/og-hero.jpg",
+  amenityFeature: ["Hot Tub", "Sauna", "Kayaking", "Hiking Trails"],
+  currenciesAccepted: "CAD",
+};
 
 export const metadata: Metadata = {
   title: "Cape Carraholly Retreat | Boat-Access Oceanside Luxury Glamping",
@@ -51,6 +70,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
+        />
+      </head>
       <body className="antialiased">
         {children}
         <Analytics />
