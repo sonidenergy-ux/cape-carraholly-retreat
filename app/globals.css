@@ -13,6 +13,15 @@
   --color-gold: #c9a97f;
   --color-text: #1a3c34;
   --color-text-light: #4a6a64;
+  /* Fixed header + urgency banner offsets (see Header + page banner) */
+  --site-header-height: 5rem;
+  --urgency-banner-height: 2.75rem;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --site-header-height: 5.5rem;
+  }
 }
 
 html {

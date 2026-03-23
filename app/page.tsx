@@ -202,8 +202,8 @@ export default function Home() {
 
   return (
     <>
-      {/* 2026 Urgency Banner – fixed top */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-ocean)] text-white text-center py-3 text-sm md:text-base font-medium tracking-wide shadow-md">
+      {/* 2026 Urgency Banner — below global header */}
+      <div className="fixed left-0 right-0 top-[var(--site-header-height)] z-[55] bg-[var(--color-ocean)] py-3 text-center text-sm font-medium tracking-wide text-white shadow-md md:text-base">
         2026 Under New Management — Upgraded Sanctuaries • Select Dates Filling Fast
       </div>
 
@@ -227,7 +227,7 @@ export default function Home() {
       </div>
 
       {/* Hero — layered inlet, overlapping text block, trust row, video */}
-      <section className="relative overflow-hidden pt-14">
+      <section className="relative overflow-hidden pt-[var(--urgency-banner-height)]">
         <motion.div
           className="absolute inset-0 scale-[1.12]"
           style={{ y: parallaxBg }}

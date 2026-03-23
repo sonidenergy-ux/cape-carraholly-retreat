@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import Header from "@/components/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -77,7 +78,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        {children}
+        <Header />
+        <main className="pt-32 md:pt-24">{children}</main>
         <Analytics />
       </body>
     </html>
