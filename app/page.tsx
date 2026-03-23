@@ -1,10 +1,14 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
+  ChevronDown,
   Footprints,
   Home as HomeIcon,
   Kayak,
+  Mail,
+  Phone,
   Scissors,
   Ship,
   Tent,
@@ -13,7 +17,29 @@ import {
 } from "lucide-react";
 import NewsletterSignup from "../components/NewsletterSignup";
 
+const CLOUDBEDS_ALERT =
+  "Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf";
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="4.25" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <path d="M13.5 22v-8.2h2.8l.5-3.2H13.5V8.6c0-.9.3-1.5 1.6-1.5h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.5H7.5v3.2h2.6V22h3.4z" />
+    </svg>
+  );
+}
+
 export default function Home() {
+  const [openFaqId, setOpenFaqId] = useState<number | null>(0);
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 600], [0, -120]); // subtle boat arrival parallax
   const fadeInUp = {
@@ -88,6 +114,52 @@ export default function Home() {
     },
   ];
 
+  const journalPosts = [
+    {
+      title: "The First Boat Ride of Spring",
+      excerpt:
+        "As the mist lifts from the inlet, the shoreline reveals itself in layers of emerald and silver—a gentle arrival that feels worlds away from the city.",
+    },
+    {
+      title: "Evening Light on the Forest Trail",
+      excerpt:
+        "Soft footfalls on cedar-lined paths, the scent of salt and pine, and a stillness that invites you to slow every breath.",
+    },
+    {
+      title: "Sanctuary After Dark",
+      excerpt:
+        "Stars over the water, the glow of a private hot tub, and the quiet hum of a place designed for deep rest.",
+    },
+  ];
+
+  const faqItems = [
+    {
+      question: "How do I get there?",
+      answer:
+        "Our complimentary boat shuttle departs from Rocky Point Park in Port Moody. The crossing is a serene 10–15 minute ride—no boating experience required. Our crew welcomes you aboard and sets the tone for your escape.",
+    },
+    {
+      question: "What should I bring?",
+      answer:
+        "Pack comfortable layers for coastal weather, sturdy shoes for forest trails, binoculars if you love wildlife, and above all—a sense of wonder. We provide the essentials for a refined wilderness stay.",
+    },
+    {
+      question: "Are pets allowed?",
+      answer:
+        "To preserve the serenity of local wildlife and the exclusive atmosphere for all guests, we do not permit pets on property.",
+    },
+    {
+      question: "Cancellation policy?",
+      answer:
+        "We offer flexible arrangements within 30 days of arrival, with full details confirmed at booking. Our team is happy to walk you through options tailored to your stay.",
+    },
+    {
+      question: "2026 upgrades?",
+      answer:
+        "Under new management, 2026 brings enhanced private hot tubs, refined trail experiences, and greater sense of privacy across the sanctuary—select dates are filling quickly.",
+    },
+  ];
+
   return (
     <>
       {/* 2026 Urgency Banner – fixed top */}
@@ -103,7 +175,7 @@ export default function Home() {
             <span className="font-medium text-lg">Your Journey Begins with the Boat</span>
           </div>
           <button
-            onClick={() => alert("Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf")}
+            onClick={() => alert(CLOUDBEDS_ALERT)}
             className="bg-[var(--color-forest)] hover:bg-[var(--color-ocean)] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-xl active:scale-95 text-lg"
           >
             Book Your Escape
@@ -229,7 +301,7 @@ export default function Home() {
 
           <div className="text-center">
             <button
-              onClick={() => alert("Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf")}
+              onClick={() => alert(CLOUDBEDS_ALERT)}
               className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
             >
               Discover Your Adventure
@@ -307,12 +379,119 @@ export default function Home() {
           >
             <button
               type="button"
-              onClick={() => alert("Cloudbeds Immersive Experience 2.0 modal opens here – property code 6a6jNf")}
+              onClick={() => alert(CLOUDBEDS_ALERT)}
               className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
             >
               Learn More About Our Values
             </button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Journal */}
+      <section id="journal" className="bg-[var(--color-sand)] py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
+            Stories from the Inlet
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
+            {journalPosts.map((post, index) => (
+              <motion.article
+                key={post.title}
+                className="bg-white rounded-3xl shadow-xl border border-[var(--color-accent)]/20 p-8 flex flex-col"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+              >
+                <h3 className="text-2xl font-serif text-[var(--color-forest)] mb-4">{post.title}</h3>
+                <p className="text-lg text-[var(--color-text-light)] opacity-90 leading-relaxed mb-6 flex-1">
+                  {post.excerpt}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => alert("Journal — coming soon")}
+                  className="self-start bg-white text-[var(--color-forest)] border border-[var(--color-forest)]/30 px-6 py-3 rounded-full text-base font-medium hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300"
+                >
+                  Read More
+                </button>
+              </motion.article>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => alert(CLOUDBEDS_ALERT)}
+              className="bg-[var(--color-forest)] text-white px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-lg"
+            >
+              Explore the Journal
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="bg-white py-24 border-t border-[var(--color-accent)]/20">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
+            Frequently Asked Questions
+          </h2>
+
+          <ul className="space-y-3">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaqId === index;
+              return (
+                <li
+                  key={item.question}
+                  className="rounded-2xl border border-[var(--color-accent)]/25 bg-[var(--color-sand)]/40 overflow-hidden"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqId(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between gap-4 text-left px-6 py-5 text-[var(--color-forest)] hover:bg-white/60 transition-colors"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-lg md:text-xl font-serif pr-4">{item.question}</span>
+                    <motion.span
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="shrink-0 text-[var(--color-ocean)]"
+                    >
+                      <ChevronDown className="w-6 h-6" aria-hidden />
+                    </motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key={item.question}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 pt-0 border-t border-[var(--color-accent)]/15">
+                          <p className="text-[var(--color-text-light)] text-base md:text-lg leading-relaxed pt-4 mb-6">
+                            {item.answer}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => alert(CLOUDBEDS_ALERT)}
+                            className="bg-[var(--color-forest)] text-white px-8 py-3 rounded-full text-base font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-md"
+                          >
+                            Ready to Book?
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
@@ -331,6 +510,93 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-[var(--color-ocean)] text-white/90 py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-12">
+            <div>
+              <p className="text-2xl font-serif text-white tracking-tight mb-2">Cape Carraholly</p>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-xs">
+                Boat In. Unplug. Reconnect.
+              </p>
+            </div>
+
+            <nav aria-label="Quick links" className="flex flex-col gap-3">
+              <span className="text-white font-medium text-sm uppercase tracking-widest mb-1">Explore</span>
+              <a href="#" className="hover:text-white transition-colors">
+                Home
+              </a>
+              <a href="#accommodations" className="hover:text-white transition-colors">
+                Accommodations
+              </a>
+              <a href="#experiences" className="hover:text-white transition-colors">
+                Experiences
+              </a>
+              <a href="#about" className="hover:text-white transition-colors">
+                About
+              </a>
+              <a href="mailto:hello@capecarraholly.com" className="hover:text-white transition-colors">
+                Contact
+              </a>
+            </nav>
+
+            <div>
+              <span className="text-white font-medium text-sm uppercase tracking-widest mb-3 block">Contact</span>
+              <a
+                href="mailto:hello@capecarraholly.com"
+                className="flex items-center gap-3 hover:text-white transition-colors mb-3"
+              >
+                <Mail className="w-5 h-5 shrink-0 text-[var(--color-accent)]" aria-hidden />
+                <span>hello@capecarraholly.com</span>
+              </a>
+              <p className="flex items-center gap-3 mb-6">
+                <Phone className="w-5 h-5 shrink-0 text-[var(--color-accent)]" aria-hidden />
+                <span>+1 (604) 000-0000</span>
+              </p>
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-colors text-[var(--color-accent)]"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-colors text-[var(--color-accent)]"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-white/20">
+            <p className="text-sm text-white/75 text-center max-w-4xl mx-auto leading-relaxed mb-4">
+              © {new Date().getFullYear()} Cape Carraholly Retreat. We acknowledge that we operate on the unceded
+              territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh (Squamish), Stó:lō, and Tsleil-Waututh Nations.
+            </p>
+            <p className="text-center">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  alert("Privacy policy — coming soon");
+                }}
+                className="text-sm text-[var(--color-accent)] hover:text-white underline underline-offset-4 transition-colors"
+              >
+                Privacy Policy
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
