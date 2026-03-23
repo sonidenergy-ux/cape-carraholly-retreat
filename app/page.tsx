@@ -98,26 +98,41 @@ export default function Home() {
       title: "Ocean Kayaking",
       description: "Glide through sheltered coves and discover shoreline wildlife at your own unhurried pace.",
       Icon: Kayak,
+      image: "/images/carraholly/kayak.jpg",
+      imageAlt:
+        "Luxury ocean kayaking on calm inlet waters at Cape Carraholly retreat, British Columbia wilderness coast",
     },
     {
       title: "Forest Trails",
       description: "Wander old-growth pathways where every step brings deeper calm and panoramic viewpoints.",
       Icon: Footprints,
+      image: "/images/carraholly/trail-inlet.jpg",
+      imageAlt:
+        "Serene forest and inlet trail walking paths at Cape Carraholly private wilderness sanctuary near Vancouver",
     },
     {
       title: "Nordic Sauna",
       description: "Restore body and mind with heat rituals inspired by the wild Pacific coast.",
       Icon: ThermometerSun,
+      image: "/images/carraholly/sauna.jpg",
+      imageAlt:
+        "Nordic sauna wellness experience at Cape Carraholly luxury glamping retreat on the Pacific coast",
     },
     {
       title: "Fresh Crabbing",
       description: "Experience coastal tradition with hands-on crabbing and unforgettable dockside moments.",
       Icon: Scissors,
+      image: "/images/carraholly/beach-shack.jpg",
+      imageAlt:
+        "Coastal crabbing and dockside beach shack experience at Cape Carraholly oceanside retreat BC",
     },
     {
       title: "Gazebo Gatherings",
       description: "Host intimate celebrations and sunset socials in a private waterfront gazebo setting.",
       Icon: Users,
+      image: "/images/carraholly/gazebo-ocean.jpg",
+      imageAlt:
+        "Private waterfront gazebo for sunset gatherings and celebrations at Cape Carraholly luxury retreat",
     },
   ];
 
@@ -428,7 +443,7 @@ export default function Home() {
             {experiences.map((item, index) => (
               <motion.div
                 key={item.title}
-                className="rounded-2xl border border-[var(--color-accent)]/30 bg-white/[0.06] p-6 text-center shadow-lg backdrop-blur-sm"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-accent)]/30 bg-white/[0.06] text-center shadow-lg backdrop-blur-sm"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
@@ -436,9 +451,22 @@ export default function Home() {
                 transition={{ duration: 0.55, delay: index * 0.07 }}
                 whileHover={{ y: -8, transition: { duration: 0.25 } }}
               >
-                <item.Icon className="mx-auto mb-4 h-10 w-10 text-[var(--color-accent)]" />
-                <h3 className="mb-3 font-serif text-2xl">{item.title}</h3>
-                <p className="leading-relaxed text-white/85">{item.description}</p>
+                <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--color-forest)]/80 via-transparent to-transparent opacity-90" />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <item.Icon className="mx-auto mb-4 h-10 w-10 text-[var(--color-accent)]" aria-hidden />
+                  <h3 className="mb-3 font-serif text-2xl">{item.title}</h3>
+                  <p className="flex-1 leading-relaxed text-white/85">{item.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
