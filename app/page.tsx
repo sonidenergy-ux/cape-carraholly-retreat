@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import NewsletterSignup from "../components/NewsletterSignup";
 import BookingModal, { openBookingModal } from "@/components/BookingModal";
+import heroCabin from "../public/images/carraholly/Cabin.jpg";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -39,12 +40,6 @@ function FacebookIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
-const HERO_INLET_IMAGE =
-  "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2400&auto=format&fit=crop";
-
-const HERO_VIDEO_EMBED =
-  "https://www.youtube-nocookie.com/embed/1ZYbU82GVz4?rel=0&modestbranding=1&playsinline=1";
 
 export default function Home() {
   const [openFaqId, setOpenFaqId] = useState<number | null>(0);
@@ -75,8 +70,8 @@ export default function Home() {
       description:
         "Three-bedroom coastal retreats with private hot tubs, hearths, and twilight firepits by the water—crafted for families and small groups who expect the exceptional.",
       Icon: HomeIcon,
-      image:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
+      image: "/images/carraholly/Cabin.jpg",
+      imageAlt: "Oceanfront lodge with private hot tub at Cape Carraholly retreat",
     },
     {
       num: "02",
@@ -84,8 +79,8 @@ export default function Home() {
       description:
         "Panoramic inlet views, king bed, and layered linens in a serene hideaway designed for quiet reconnection above the tide line.",
       Icon: Tent,
-      image:
-        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1600&auto=format&fit=crop",
+      image: "/images/carraholly/Dome.jpg",
+      imageAlt: "Waterfront dome glamping panoramic inlet views British Columbia",
     },
     {
       num: "03",
@@ -93,8 +88,8 @@ export default function Home() {
       description:
         "Elevated forest platforms wrapped in stillness, with curated shared amenities moments away—intimate, grounded, unforgettable.",
       Icon: Tent,
-      image:
-        "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=1600&auto=format&fit=crop",
+      image: "/images/carraholly/Yurt.jpg",
+      imageAlt: "Secluded elevated yurt forest serenity luxury glamping",
     },
   ];
 
@@ -219,12 +214,20 @@ export default function Home() {
       {/* Hero — layered inlet, overlapping text block, trust row, video */}
       <section className="relative overflow-hidden pt-14">
         <motion.div
-          className="hero-bg absolute inset-0 scale-[1.12]"
-          style={{
-            y: parallaxBg,
-            backgroundImage: `url('${HERO_INLET_IMAGE}')`,
-          }}
-        />
+          className="absolute inset-0 scale-[1.12]"
+          style={{ y: parallaxBg }}
+        >
+          <Image
+            src={heroCabin}
+            alt="Boat arriving at Cape Carraholly oceanside retreat"
+            fill
+            priority
+            placeholder="blur"
+            quality={85}
+            sizes="100vw"
+            className="object-cover brightness-75"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-forest)]/50 via-black/35 to-black/75" />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-sand)] via-transparent to-transparent opacity-90" />
 
@@ -301,23 +304,20 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
-              Arrival by water — placeholder reel
-            </p>
             <div className="wood-card relative aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl">
-              <iframe
-                src={HERO_VIDEO_EMBED}
-                title="Boat arrival and sanctuary preview — placeholder video"
-                className="absolute inset-0 h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                src="/images/carraholly/Video.mp4"
+                poster="/images/carraholly/Cabin.jpg"
+                className="h-full w-full object-cover rounded-2xl"
               />
+              <p className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-5 pt-12 text-center text-sm font-semibold text-white md:text-base [text-shadow:0_2px_14px_rgba(0,0,0,0.95)]">
+                Your Journey Begins Here – Watch the Boat Arrival
+              </p>
             </div>
-            <p className="mt-2 text-center text-sm text-white/70">
-              Replace with your founder story or boat-crossing edit when ready.
-            </p>
           </motion.div>
         </div>
       </section>
@@ -360,10 +360,11 @@ export default function Home() {
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={item.imageAlt}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
                   <div className="absolute left-4 top-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/80 bg-white/90 font-serif text-xl text-[var(--color-accent)] shadow-md">
