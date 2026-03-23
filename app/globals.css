@@ -1,3 +1,38 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-ocean: #0f2b5b;
+  --color-forest: #1a3c34;
+  --color-sand: #f5f0e8;
+  --color-wood: #8c6f4e;
+  --color-accent: #c9a97f;
+  --color-text: #1a3c34;
+  --color-text-light: #4a6a64;
+}
+
+body {
+  @apply bg-[var(--color-sand)] text-[var(--color-text)] font-sans;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}
