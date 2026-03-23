@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -10,8 +10,13 @@
   --color-sand: #f5f0e8;
   --color-wood: #8c6f4e;
   --color-accent: #c9a97f;
+  --color-gold: #c9a97f;
   --color-text: #1a3c34;
   --color-text-light: #4a6a64;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -30,7 +35,53 @@ h1, h2, h3, h4, h5, h6 {
 .hero-bg {
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+}
+
+/* Subtle wood-grain feel + warm frame for premium cards */
+.wood-card {
+  border: 2px solid color-mix(in srgb, var(--color-wood) 55%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-wood) 20%, transparent),
+    0 12px 40px -12px color-mix(in srgb, var(--color-forest) 35%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #fff 50%, transparent);
+  background-image:
+    repeating-linear-gradient(
+      105deg,
+      transparent,
+      transparent 14px,
+      color-mix(in srgb, var(--color-wood) 4%, transparent) 14px,
+      color-mix(in srgb, var(--color-wood) 4%, transparent) 15px
+    ),
+    repeating-linear-gradient(
+      transparent,
+      transparent 2px,
+      color-mix(in srgb, var(--color-forest) 2%, transparent) 2px,
+      color-mix(in srgb, var(--color-forest) 2%, transparent) 3px
+    );
+}
+
+.btn-luxury-primary {
+  @apply rounded-full font-medium shadow-lg transition-all duration-300;
+  background: linear-gradient(165deg, var(--color-gold) 0%, color-mix(in srgb, var(--color-gold) 85%, #8c6f4e) 100%);
+  color: var(--color-forest);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+.btn-luxury-primary:hover {
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--color-gold) 55%, transparent);
+  filter: brightness(1.05);
+}
+
+.btn-luxury-outline {
+  @apply rounded-full font-medium transition-all duration-300 border-2 bg-white/95;
+  border-color: var(--color-wood);
+  color: var(--color-forest);
+}
+
+.btn-luxury-outline:hover {
+  border-color: var(--color-gold);
+  color: var(--color-forest);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--color-wood) 25%, transparent);
 }
 
 @layer utilities {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   ChevronDown,
@@ -8,11 +9,14 @@ import {
   Home as HomeIcon,
   Kayak,
   Mail,
+  MapPin,
   Phone,
   Scissors,
   Ship,
+  Sparkles,
   Tent,
   ThermometerSun,
+  TreePine,
   Users,
 } from "lucide-react";
 import NewsletterSignup from "../components/NewsletterSignup";
@@ -36,33 +40,61 @@ function FacebookIcon({ className }: { className?: string }) {
   );
 }
 
+const HERO_INLET_IMAGE =
+  "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2400&auto=format&fit=crop";
+
+const HERO_VIDEO_EMBED =
+  "https://www.youtube-nocookie.com/embed/1ZYbU82GVz4?rel=0&modestbranding=1&playsinline=1";
+
 export default function Home() {
   const [openFaqId, setOpenFaqId] = useState<number | null>(0);
   const { scrollY } = useScroll();
-  const parallaxY = useTransform(scrollY, [0, 600], [0, -120]); // subtle boat arrival parallax
+  const parallaxBg = useTransform(scrollY, [0, 900], [0, -160]);
+  const parallaxText = useTransform(scrollY, [0, 900], [0, 72]);
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0 },
   };
 
+  const sectionReveal = {
+    hidden: { opacity: 0, y: 36 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const trustStats = [
+    { label: "Complimentary Boat Shuttle", Icon: Ship },
+    { label: "75 Acres Private Wilderness", Icon: TreePine },
+    { label: "2026 Upgraded Sanctuaries", Icon: Sparkles },
+    { label: "Minutes from Vancouver", Icon: MapPin },
+  ];
+
   const accommodations = [
     {
+      num: "01",
       title: "Oceanfront Lodges",
       description:
-        "Three-bedroom coastal retreats with private hot tubs, fireplaces, and twilight firepits by the water. Perfect for families or small groups seeking elevated comfort.",
+        "Three-bedroom coastal retreats with private hot tubs, hearths, and twilight firepits by the water—crafted for families and small groups who expect the exceptional.",
       Icon: HomeIcon,
+      image:
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
     },
     {
+      num: "02",
       title: "Waterfront Dome",
       description:
-        "Panoramic inlet views, king bed, luxury linens – a serene hideaway designed for effortless reconnection.",
+        "Panoramic inlet views, king bed, and layered linens in a serene hideaway designed for quiet reconnection above the tide line.",
       Icon: Tent,
+      image:
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1600&auto=format&fit=crop",
     },
     {
+      num: "03",
       title: "Secluded Yurts",
       description:
-        "Elevated forest platforms immersed in wilderness stillness with curated shared amenities nearby.",
+        "Elevated forest platforms wrapped in stillness, with curated shared amenities moments away—intimate, grounded, unforgettable.",
       Icon: Tent,
+      image:
+        "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=1600&auto=format&fit=crop",
     },
   ];
 
@@ -166,188 +198,320 @@ export default function Home() {
       </div>
 
       {/* Sticky Booking Bar – fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-[var(--color-forest)]/20 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--color-wood)]/40 bg-white/95 shadow-2xl backdrop-blur-lg">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-4 sm:flex-row">
           <div className="flex items-center gap-3 text-[var(--color-forest)]">
-            <Ship className="w-6 h-6" />
-            <span className="font-medium text-lg">Your Journey Begins with the Boat</span>
+            <Ship className="h-6 w-6 shrink-0 text-[var(--color-accent)]" />
+            <span className="text-center text-lg font-medium sm:text-left">Your journey begins with the boat</span>
           </div>
-          <button
+          <motion.button
             type="button"
             onClick={() => openBookingModal({ source: "sticky_bar" })}
-            className="bg-[var(--color-forest)] hover:bg-[var(--color-ocean)] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-xl active:scale-95 text-lg"
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="btn-luxury-primary px-10 py-4 text-lg"
           >
             Book Your Escape
-          </button>
+          </motion.button>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero — layered inlet, overlapping text block, trust row, video */}
+      <section className="relative overflow-hidden pt-14">
         <motion.div
-          className="hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop')] scale-110"
-          style={{ y: parallaxY }}
+          className="hero-bg absolute inset-0 scale-[1.12]"
+          style={{
+            y: parallaxBg,
+            backgroundImage: `url('${HERO_INLET_IMAGE}')`,
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-forest)]/50 via-black/35 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-sand)] via-transparent to-transparent opacity-90" />
 
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto text-white">
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight leading-tight mb-8"
-          >
-            Boat In.<br className="sm:hidden" /> Unplug.<br className="sm:hidden" /> Reconnect.
-          </motion.h1>
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-7xl flex-col justify-end gap-10 px-4 pb-16 pt-10 md:px-8 lg:justify-center lg:pb-20 lg:pt-8">
+          <div className="grid w-full items-center gap-10 lg:grid-cols-12 lg:gap-6">
+            <motion.div
+              className="lg:col-span-7 xl:col-span-6"
+              style={{ y: parallaxText }}
+              initial={{ opacity: 0, y: 48 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="wood-card rounded-3xl bg-white/96 p-8 shadow-2xl backdrop-blur-md md:p-10 lg:-ml-4 lg:p-12 xl:-ml-8">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-[var(--color-accent)] md:text-sm">
+                  Wilderness luxury · Port Moody inlet
+                </p>
+                <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-[var(--color-forest)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+                  <span className="text-[var(--color-accent)]">Boat In.</span>
+                  <br />
+                  Unplug.
+                  <br />
+                  Reconnect.
+                </h1>
+                <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-[var(--color-text-light)] md:text-xl">
+                  Minutes from Vancouver—yet worlds away. A boat-access-only oceanside sanctuary on seventy-five acres of
+                  unspoiled coastal forest.
+                </p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="text-xl md:text-2xl max-w-3xl mx-auto mb-12 text-white/90 font-light"
-          >
-            Minutes from Vancouver, worlds away in serenity. Boat-access-only oceanside sanctuary on 75 acres of unspoiled wilderness.
-          </motion.p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {trustStats.map(({ label, Icon }) => (
+                    <div
+                      key={label}
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--color-wood)]/45 bg-[var(--color-sand)]/80 px-4 py-2 text-left text-xs font-medium text-[var(--color-forest)] shadow-sm md:text-sm"
+                    >
+                      <Icon className="h-4 w-4 shrink-0 text-[var(--color-accent)]" aria-hidden />
+                      <span>{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <motion.div
+                  className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45, duration: 0.7 }}
+                >
+                  <motion.button
+                    type="button"
+                    onClick={() => openBookingModal({ source: "hero" })}
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="btn-luxury-primary px-10 py-5 text-lg md:text-xl"
+                  >
+                    Reserve Your Sanctuary
+                  </motion.button>
+                  <motion.a
+                    href="#newsletter"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="btn-luxury-outline inline-flex items-center justify-center px-10 py-5 text-lg md:text-xl"
+                  >
+                    Stay Informed
+                  </motion.a>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            <div className="hidden lg:col-span-5 xl:col-span-6 lg:block" aria-hidden />
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            className="mx-auto w-full max-w-5xl"
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            transition={{ delay: 0.55, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
-            <button
-              type="button"
-              onClick={() => openBookingModal({ source: "hero" })}
-              className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
-            >
-              Reserve Your Sanctuary
-            </button>
-            <a
-              href="#newsletter"
-              className="border-2 border-white text-white px-10 py-5 rounded-full text-xl font-medium hover:bg-white hover:text-[var(--color-forest)] transition-all duration-300"
-            >
-              Stay Informed
-            </a>
+            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
+              Arrival by water — placeholder reel
+            </p>
+            <div className="wood-card relative aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl">
+              <iframe
+                src={HERO_VIDEO_EMBED}
+                title="Boat arrival and sanctuary preview — placeholder video"
+                className="absolute inset-0 h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+            <p className="mt-2 text-center text-sm text-white/70">
+              Replace with your founder story or boat-crossing edit when ready.
+            </p>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-8 text-sm md:text-base text-white/85 font-medium"
-          >
-            Complimentary boat shuttle from Rocky Point Park • No experience needed
-          </motion.p>
         </div>
       </section>
 
       {/* Accommodations */}
-      <section id="accommodations" className="py-24 bg-[var(--color-sand)]">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-serif mb-16 text-center text-[var(--color-forest)]">
-            Your Private Sanctuary Awaits
-          </h2>
+      <motion.section
+        id="accommodations"
+        className="scroll-mt-24 bg-[var(--color-sand)] py-24"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto mb-6 max-w-3xl text-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[var(--color-accent)]">
+              Sanctuaries
+            </p>
+            <h2 className="font-serif text-4xl text-[var(--color-forest)] md:text-5xl lg:text-6xl">
+              Your private <span className="text-[var(--color-accent)]">sanctuary</span> awaits
+            </h2>
+            <p className="mt-4 text-lg text-[var(--color-text-light)]">
+              Three distinct ways to settle into the inlet—each numbered, each considered.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
             {accommodations.map((item, index) => (
               <motion.article
                 key={item.title}
-                className="bg-white rounded-3xl shadow-xl overflow-hidden border border-[var(--color-accent)]/20 p-8 flex flex-col"
+                className="wood-card group flex flex-col overflow-hidden rounded-3xl bg-white"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: index * 0.12 }}
+                whileHover={{ y: -8 }}
               >
-                <item.Icon className="w-12 h-12 text-[var(--color-ocean)] mb-6" />
-                <h3 className="text-2xl font-serif text-[var(--color-forest)] mb-4">{item.title}</h3>
-                <p className="text-lg text-[var(--color-text-light)] opacity-90 leading-relaxed mb-6 flex-1">
-                  {item.description}
-                </p>
-                <button
-                  type="button"
-                  onClick={() =>
-                    openBookingModal({ source: "accommodations", accommodation: item.title })
-                  }
-                  className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
-                >
-                  Reserve This Sanctuary
-                </button>
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
+                  <div className="absolute left-4 top-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/80 bg-white/90 font-serif text-xl text-[var(--color-accent)] shadow-md">
+                    {item.num}
+                  </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-end p-6 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <motion.button
+                      type="button"
+                      onClick={() =>
+                        openBookingModal({ source: "accommodations", accommodation: item.title })
+                      }
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="btn-luxury-primary w-full max-w-[280px] px-8 py-4 text-base md:text-lg"
+                    >
+                      Reserve This Sanctuary
+                    </motion.button>
+                  </div>
+                </div>
+                <div className="flex flex-1 flex-col p-8">
+                  <div className="mb-4 flex items-center gap-3">
+                    <item.Icon className="h-10 w-10 text-[var(--color-accent)]" aria-hidden />
+                    <h3 className="font-serif text-2xl text-[var(--color-forest)] md:text-3xl">{item.title}</h3>
+                  </div>
+                  <p className="flex-1 text-lg leading-relaxed text-[var(--color-text-light)]">{item.description}</p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openBookingModal({ source: "accommodations", accommodation: item.title })
+                    }
+                    className="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-widest text-[var(--color-wood)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] md:hidden"
+                  >
+                    Reserve This Sanctuary
+                  </button>
+                </div>
               </motion.article>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Experiences */}
-      <section id="experiences" className="bg-[var(--color-forest)] text-white py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-5xl font-serif text-center mb-16">The Cape Carraholly Experience</h2>
+      <motion.section
+        id="experiences"
+        className="scroll-mt-24 bg-[var(--color-forest)] py-24 text-white"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="mb-4 text-center font-serif text-4xl md:text-5xl lg:text-6xl">
+            The Cape Carraholly <span className="text-[var(--color-accent)]">experience</span>
+          </h2>
+          <p className="mx-auto mb-14 max-w-2xl text-center text-lg text-white/80">
+            Curated moments on water, trail, and deck—composed together, at your pace.
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-14">
+          <div className="mb-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {experiences.map((item, index) => (
               <motion.div
                 key={item.title}
-                className="rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm p-6 text-center"
+                className="rounded-2xl border border-[var(--color-accent)]/30 bg-white/[0.06] p-6 text-center shadow-lg backdrop-blur-sm"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
+                transition={{ duration: 0.55, delay: index * 0.07 }}
+                whileHover={{ y: -8, transition: { duration: 0.25 } }}
               >
-                <item.Icon className="w-10 h-10 mx-auto mb-4 text-[var(--color-accent)]" />
-                <h3 className="text-2xl font-serif mb-3">{item.title}</h3>
-                <p className="text-white/85 leading-relaxed">{item.description}</p>
+                <item.Icon className="mx-auto mb-4 h-10 w-10 text-[var(--color-accent)]" />
+                <h3 className="mb-3 font-serif text-2xl">{item.title}</h3>
+                <p className="leading-relaxed text-white/85">{item.description}</p>
               </motion.div>
             ))}
           </div>
 
           <div className="text-center">
-            <button
+            <motion.button
               type="button"
               onClick={() => openBookingModal({ source: "experiences" })}
-              className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="rounded-full border-2 border-[var(--color-accent)] bg-[var(--color-accent)]/15 px-10 py-5 text-xl font-medium text-white shadow-lg backdrop-blur transition-colors duration-300 hover:bg-[var(--color-accent)] hover:text-[var(--color-forest)]"
             >
               Discover Your Adventure
-            </button>
+            </motion.button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="bg-[var(--color-sand)] py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
-            What Guests Are Saying
+      <motion.section
+        id="testimonials"
+        className="scroll-mt-24 bg-[var(--color-sand)] py-24"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        transition={{ duration: 0.65 }}
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="mb-4 text-center font-serif text-4xl text-[var(--color-forest)] md:text-5xl lg:text-6xl">
+            What guests are <span className="text-[var(--color-accent)]">saying</span>
           </h2>
+          <p className="mx-auto mb-14 max-w-xl text-center text-lg text-[var(--color-text-light)]">
+            Word of mouth from those who crossed by boat and stayed for the stillness.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-3">
             {testimonials.map((item, index) => (
               <motion.blockquote
                 key={item.attribution}
-                className="bg-white rounded-3xl shadow-xl p-8 border border-[var(--color-accent)]/20 flex flex-col"
+                className="wood-card flex flex-col rounded-3xl bg-white p-8"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.55, delay: index * 0.1 }}
+                whileHover={{ y: -6 }}
               >
                 <p className="text-lg text-[var(--color-text-light)] leading-relaxed mb-6 flex-1">
                   &ldquo;{item.quote}&rdquo;
                 </p>
-                <footer className="text-[var(--color-forest)] font-medium text-sm md:text-base border-t border-[var(--color-accent)]/30 pt-4">
+                <footer className="border-t border-[var(--color-accent)]/35 pt-4 text-sm font-medium text-[var(--color-forest)] md:text-base">
                   — {item.attribution}
                 </footer>
               </motion.blockquote>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* About */}
-      <section id="about" className="bg-[var(--color-forest)] text-white py-24">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-5xl font-serif text-center mb-12">The Story of Cape Carraholly</h2>
+      <motion.section
+        id="about"
+        className="scroll-mt-24 bg-[var(--color-forest)] py-24 text-white"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.65 }}
+      >
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <h2 className="mb-12 text-center font-serif text-4xl md:text-5xl lg:text-6xl">
+            The story of <span className="text-[var(--color-accent)]">Cape Carraholly</span>
+          </h2>
 
           <motion.div
             className="space-y-6 text-lg md:text-xl text-white/90 leading-relaxed"
@@ -381,68 +545,97 @@ export default function Home() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <button
+            <motion.button
               type="button"
               onClick={() => openBookingModal({ source: "about" })}
-              className="bg-white text-[var(--color-forest)] px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-lg"
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="btn-luxury-primary px-10 py-5 text-xl"
             >
               Learn More About Our Values
-            </button>
+            </motion.button>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Journal */}
-      <section id="journal" className="bg-[var(--color-sand)] py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
-            Stories from the Inlet
+      <motion.section
+        id="journal"
+        className="scroll-mt-24 bg-[var(--color-sand)] py-24"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.65 }}
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="mb-4 text-center font-serif text-4xl text-[var(--color-forest)] md:text-5xl lg:text-6xl">
+            Stories from the <span className="text-[var(--color-accent)]">inlet</span>
           </h2>
+          <p className="mx-auto mb-14 max-w-2xl text-center text-lg text-[var(--color-text-light)]">
+            Notes on light, tide, and the rhythm of arrival—shared when the moment feels right.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
+          <div className="mb-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {journalPosts.map((post, index) => (
               <motion.article
                 key={post.title}
-                className="bg-white rounded-3xl shadow-xl border border-[var(--color-accent)]/20 p-8 flex flex-col"
+                className="wood-card flex flex-col rounded-3xl bg-white p-8"
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                whileHover={{ y: -6 }}
               >
                 <h3 className="text-2xl font-serif text-[var(--color-forest)] mb-4">{post.title}</h3>
                 <p className="text-lg text-[var(--color-text-light)] opacity-90 leading-relaxed mb-6 flex-1">
                   {post.excerpt}
                 </p>
-                <button
+                <motion.button
                   type="button"
                   onClick={() => alert("Journal — coming soon")}
-                  className="self-start bg-white text-[var(--color-forest)] border border-[var(--color-forest)]/30 px-6 py-3 rounded-full text-base font-medium hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-luxury-outline self-start px-6 py-3 text-base"
                 >
                   Read More
-                </button>
+                </motion.button>
               </motion.article>
             ))}
           </div>
 
           <div className="text-center">
-            <button
+            <motion.button
               type="button"
               onClick={() => openBookingModal({ source: "journal" })}
-              className="bg-[var(--color-forest)] text-white px-10 py-5 rounded-full text-xl font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-lg"
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="rounded-full border-2 border-[var(--color-wood)] bg-[var(--color-forest)] px-10 py-5 text-xl font-medium text-white shadow-lg transition-colors duration-300 hover:border-[var(--color-accent)] hover:bg-[var(--color-ocean)]"
             >
               Explore the Journal
-            </button>
+            </motion.button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ */}
-      <section id="faq" className="bg-white py-24 border-t border-[var(--color-accent)]/20">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-5xl font-serif text-center mb-16 text-[var(--color-forest)]">
-            Frequently Asked Questions
+      <motion.section
+        id="faq"
+        className="scroll-mt-24 border-t border-[var(--color-wood)]/25 bg-white py-24"
+        variants={sectionReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.08 }}
+        transition={{ duration: 0.65 }}
+      >
+        <div className="mx-auto max-w-3xl px-6">
+          <h2 className="mb-4 text-center font-serif text-4xl text-[var(--color-forest)] md:text-5xl">
+            Frequently asked <span className="text-[var(--color-accent)]">questions</span>
           </h2>
+          <p className="mb-14 text-center text-lg text-[var(--color-text-light)]">
+            Everything you need before you step aboard—we are here to help you plan.
+          </p>
 
           <ul className="space-y-3">
             {faqItems.map((item, index) => {
@@ -450,7 +643,7 @@ export default function Home() {
               return (
                 <li
                   key={item.question}
-                  className="rounded-2xl border border-[var(--color-accent)]/25 bg-[var(--color-sand)]/40 overflow-hidden"
+                  className="overflow-hidden rounded-2xl border-2 border-[var(--color-wood)]/30 bg-[var(--color-sand)]/50 shadow-sm"
                 >
                   <button
                     type="button"
@@ -481,13 +674,15 @@ export default function Home() {
                           <p className="text-[var(--color-text-light)] text-base md:text-lg leading-relaxed pt-4 mb-6">
                             {item.answer}
                           </p>
-                          <button
+                          <motion.button
                             type="button"
                             onClick={() => openBookingModal({ source: "faq" })}
-                            className="bg-[var(--color-forest)] text-white px-8 py-3 rounded-full text-base font-medium hover:bg-[var(--color-ocean)] transition-all duration-300 shadow-md"
+                            whileHover={{ y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="btn-luxury-primary px-8 py-3 text-base"
                           >
                             Ready to Book?
-                          </button>
+                          </motion.button>
                         </div>
                       </motion.div>
                     )}
@@ -497,12 +692,14 @@ export default function Home() {
             })}
           </ul>
         </div>
-      </section>
+      </motion.section>
 
       {/* Newsletter Teaser */}
-      <section id="newsletter" className="py-24 bg-[var(--color-forest)] text-white">
+      <section id="newsletter" className="scroll-mt-24 bg-[var(--color-forest)] py-24 text-white">
         <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif mb-6">Join the Current</h2>
+          <h2 className="mb-6 font-serif text-4xl md:text-5xl">
+            Join the <span className="text-[var(--color-accent)]">current</span>
+          </h2>
           <p className="text-xl md:text-2xl mb-10 opacity-90">
             Receive early access to 2026 upgrades, seasonal packages, and exclusive availability alerts.
           </p>
@@ -516,7 +713,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[var(--color-ocean)] text-white/90 py-16">
+      <footer className="bg-[var(--color-ocean)] py-16 pb-28 text-white/90 md:pb-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12">
             <div>
