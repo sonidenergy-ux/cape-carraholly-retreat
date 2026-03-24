@@ -257,7 +257,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="wood-card rounded-3xl bg-white/96 p-8 shadow-2xl backdrop-blur-md md:p-10 lg:-ml-4 lg:p-12 xl:-ml-8">
+              <div className="wood-card rounded-3xl bg-[var(--color-sand)] p-8 shadow-2xl md:p-10 lg:-ml-4 lg:p-12 xl:-ml-8">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-[var(--color-accent)] md:text-sm">
                   Wilderness luxury · Port Moody inlet
                 </p>
@@ -277,7 +277,7 @@ export default function Home() {
                   {trustStats.map(({ label, Icon }) => (
                     <div
                       key={label}
-                      className="inline-flex items-center gap-2 rounded-full border border-[var(--color-wood)]/45 bg-[var(--color-sand)]/80 px-4 py-2 text-left text-xs font-medium text-[var(--color-forest)] shadow-sm md:text-sm"
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--color-wood)]/45 bg-white px-4 py-2 text-left text-xs font-medium text-[var(--color-forest)] shadow-sm md:text-sm"
                     >
                       <Icon className="h-4 w-4 shrink-0 text-[var(--color-accent)]" aria-hidden />
                       <span>{label}</span>
